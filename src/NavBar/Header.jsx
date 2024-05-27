@@ -1,7 +1,9 @@
 import React from 'react'
-import logo from "../../public/vite.svg"
 import { NavLink, useLocation } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
+import { Logo } from './Logo'
+import { MobileSideBar } from './MobileSideBar'
+import { SearchBtn } from './SearchBtn'
 
 const navText = [
     {
@@ -42,11 +44,15 @@ export const Header = () => {
                 </p>
             </div>
             <main className=' container my-[1rem] flex items-center justify-between'>
-                <div className=' h-[3rem]  flex items-center justify-start gap-2'>
-                    <img className='w-[1.8rem] h-[1.8rem]' src={logo} alt="" />
-                    <h1 className='text-[#2AA7FF] text-[1.3rem] font-bold'>Medify</h1>
+                <NavLink to={'/'}>
+                    <Logo/>
+                </NavLink>
+                <div className='lg:hidden flex items-center gap-3'>
+                    <MobileSideBar  navText={navText} params = {params}  />
+                    <SearchBtn/>
                 </div>
-                <div className=' h-[3rem] flex items-center justify-end gap-[2rem] '>
+
+                <div className=' h-[3rem]  lg:flex md:hidden sm:hidden hidden items-center justify-end gap-[2rem] '>
                     {navText.map((ele) => (
                         <NavLink 
                             key={ele.text}
@@ -56,9 +62,13 @@ export const Header = () => {
                             {ele.text}
                         </NavLink>
                     ))}
-                    <Button variant = "blue">
-                        My Bookings
-                    </Button>
+
+
+                    <NavLink to={'/bookings'}>
+                        <Button variant = "blue">
+                            My Bookings
+                        </Button>
+                    </NavLink>
                 </div>
             </main>
         </header>
